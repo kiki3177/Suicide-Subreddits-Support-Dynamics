@@ -19,7 +19,7 @@ def analyze_csv_file(file_path):
 
 
 # Analyze CSV files
-analyze_csv_file("SuicideWatch_submissions_cleaned.csv")
-analyze_csv_file("SuicideWatch_comments_cleaned.csv")
-analyze_csv_file("depression_submissions_cleaned.csv")
-analyze_csv_file("depression_comments_cleaned.csv")
+analyze_csv_file("cleaned_datasets/SuicideWatch_submissions_cleaned.csv")
+analyze_csv_file("cleaned_datasets/SuicideWatch_comments_cleaned.csv")
+analyze_csv_file("cleaned_datasets/depression_submissions_cleaned.csv")
+analyze_csv_file("cleaned_datasets/depression_comments_cleaned.csv")

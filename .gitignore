@@ -1,5 +1,6 @@
 
 .DS_Store
 /.idea
-*.csv
 *.zst
+/data_preparation/linked_datasets
+/data_preparation/cleaned_datasets

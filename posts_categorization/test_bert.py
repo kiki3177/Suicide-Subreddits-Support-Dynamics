@@ -2,7 +2,7 @@ from transformers import pipeline
 
 classifier = pipeline("zero-shot-classification", model="bert-large-uncased", device=0)
 
-labels = ["seeking help and support", "sharing emotional experience", "giving advice", "others/random"]
+labels = ["1. Seeking help and support", "2. Sharing emotional experience", "3. Giving advice", "4. Others/random"]
 
 posts = [
     "I hate existing. Nothing helps. I think this is my third time posting here and every time I just feel worse. I don't know what to do anymore. Anyone else feel the same?",
