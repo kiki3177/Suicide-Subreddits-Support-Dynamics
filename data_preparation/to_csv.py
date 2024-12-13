@@ -124,11 +124,10 @@ def conversion(input_file_path, output_file_path):
 
 
 
-# go through every file in folder "subreddits23" and convert them to csv
-for filename in tqdm(os.listdir('subreddits23')):
+for filename in tqdm(os.listdir('subreddits_zst')):
 	if filename.endswith(".zst"):
 		print(filename)
-		conversion('subreddits23/' + filename, os.path.join('/Users/kiki/Desktop/reddit_data_preparation', filename[:-4] + '.csv'))
+		conversion('subreddits_zst/' + filename, os.path.join(filename[:-4] + '.csv'))
 		continue
 	else:
 		continue

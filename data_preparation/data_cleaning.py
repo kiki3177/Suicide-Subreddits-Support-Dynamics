@@ -1,43 +1,114 @@
 import pandas as pd
 
-suicide_submissions = pd.read_csv("linked_datasets/SuicideWatch_linked_submissions.csv", dtype='str', encoding='utf-8', lineterminator='\n')
-suicide_comments = pd.read_csv("linked_datasets/SuicideWatch_linked_comments.csv", dtype='str', encoding='utf-8', lineterminator='\n')
-depression_submissions = pd.read_csv("linked_datasets/depression_linked_submissions.csv", dtype='str', encoding='utf-8', lineterminator='\n')
-depression_comments = pd.read_csv("linked_datasets/depression_linked_comments.csv", dtype='str', encoding='utf-8', lineterminator='\n')
+
+def clean_data_submissions(df, start_year, end_year):
+    df['created'] = pd.to_datetime(df['created'], format='%Y-%m-%d %H:%M')
+    df_cleaned = df.dropna(subset=['thread_id', 'author', 'text'])
+    df_cleaned = df_cleaned[df_cleaned['author'] != 'u/[deleted]']
+    df_cleaned = df_cleaned[df_cleaned['text'] != '[removed]']
+    df_filtered = df_cleaned[(df_cleaned['created'].dt.year >= start_year) & (df_cleaned['created'].dt.year <= end_year)]
+
+    return df_filtered
+
+def clean_data_comments(df, start_year, end_year):
+    df['created'] = pd.to_datetime(df['created'], format='%Y-%m-%d %H:%M')
+    df_cleaned = df.dropna(subset=['thread_id', 'author', 'body'])
+    df_cleaned = df_cleaned[df_cleaned['author'] != 'u/[deleted]']
+    df_cleaned = df_cleaned[df_cleaned['body'] != '[removed]']
+    df_filtered = df_cleaned[(df_cleaned['created'].dt.year >= start_year) & (df_cleaned['created'].dt.year <= end_year)]
+
+    return df_filtered
+
+def integrate_content_submissions(df):
+    df['content'] = df['title'].fillna('') + " " + df['text'].fillna('')
+    df = df[['author', 'score', 'content', 'link', 'thread_id']]
+    return df
+
+def integrate_content_comments(df):
+    df['content'] = df['body'].fillna('')
+    df = df[['author', 'score', 'content', 'link', 'thread_id']]
+    return df
 
 
-suicide_submissions['created'] = pd.to_datetime(suicide_submissions['created'], format='%Y-%m-%d %H:%M')
-suicide_comments['created'] = pd.to_datetime(suicide_comments['created'], format='%Y-%m-%d %H:%M')
-depression_submissions['created'] = pd.to_datetime(depression_submissions['created'], format='%Y-%m-%d %H:%M')
-depression_comments['created'] = pd.to_datetime(depression_comments['created'], format='%Y-%m-%d %H:%M')
+
+suicide_submissions = pd.read_csv("linked_datasets_all/SuicideWatch_linked_submissions.csv", dtype='str', encoding='utf-8',lineterminator='\n')
+suicide_comments = pd.read_csv("linked_datasets_all/SuicideWatch_linked_comments.csv", dtype='str', encoding='utf-8', lineterminator='\n')
+depression_submissions = pd.read_csv("linked_datasets_all/depression_linked_submissions.csv", dtype='str', encoding='utf-8', lineterminator='\n')
+depression_comments = pd.read_csv("linked_datasets_all/depression_linked_comments.csv", dtype='str', encoding='utf-8', lineterminator='\n')
 
 
-filtered_suicide_submissions = suicide_submissions[(suicide_submissions['created'].dt.year >= 2012) & (suicide_submissions['created'].dt.year <= 2022)]
-filtered_suicide_comments = suicide_comments[(suicide_comments['created'].dt.year >= 2012) & (suicide_comments['created'].dt.year <= 2022)]
-filtered_depression_submissions = depression_submissions[(depression_submissions['created'].dt.year >= 2012) & (depression_submissions['created'].dt.year <= 2022)]
-filtered_depression_comments = depression_comments[(depression_comments['created'].dt.year >= 2012) & (depression_comments['created'].dt.year <= 2022)]
 
-# # Calculate the exact time range for each filtered dataset
-# suicide_submissions_range = (filtered_suicide_submissions['created'].min(), filtered_suicide_submissions['created'].max())
-# suicide_comments_range = (filtered_suicide_comments['created'].min(), filtered_suicide_comments['created'].max())
-# depression_submissions_range = (filtered_depression_submissions['created'].min(), filtered_depression_submissions['created'].max())
-# depression_comments_range = (filtered_depression_comments['created'].min(), filtered_depression_comments['created'].max())
-# print("SuicideWatch Submissions Time Range:", suicide_submissions_range)
-# print("SuicideWatch Comments Time Range:", suicide_comments_range)
-# print("Depression Submissions Time Range:", depression_submissions_range)
-# print("Depression Comments Time Range:", depression_comments_range)
+filtered_suicide_submissions_2022 = clean_data_submissions(suicide_submissions, 2022, 2022)
+filtered_suicide_comments_2022 =  clean_data_comments(suicide_comments, 2022, 2022)
+filtered_depression_submissions_2022 = clean_data_submissions(depression_submissions, 2022, 2022)
+filtered_depression_comments_2022 = clean_data_comments(depression_comments, 2022, 2022)
 
-filtered_suicide_submissions['content'] = filtered_suicide_submissions['title'].fillna('') + " " + filtered_suicide_submissions['text'].fillna('')
-filtered_suicide_comments['content'] = filtered_suicide_comments['body'].fillna('')
-filtered_depression_submissions['content'] = filtered_depression_submissions['title'].fillna('') + " " + filtered_depression_submissions['text'].fillna('')
-filtered_depression_comments['content'] = filtered_depression_comments['body'].fillna('')
+filtered_suicide_submissions_2023 = clean_data_submissions(suicide_submissions, 2023, 2023)
+filtered_suicide_comments_2023 =  clean_data_comments(suicide_comments, 2023, 2023)
+filtered_depression_submissions_2023 = clean_data_submissions(depression_submissions, 2023, 2023)
+filtered_depression_comments_2023 = clean_data_comments(depression_comments, 2023, 2023)
 
-final_suicide_submissions = filtered_suicide_submissions[['author', 'content', 'link', 'thread_id']]
-final_suicide_comments = filtered_suicide_comments[['author', 'content', 'link', 'thread_id']]
-final_depression_submissions = filtered_depression_submissions[['author', 'content', 'link', 'thread_id']]
-final_depression_comments = filtered_depression_comments[['author', 'content', 'link', 'thread_id']]
 
-final_suicide_submissions.to_csv('cleaned_datasets/SuicideWatch_submissions_cleaned.csv', index = False)
-final_suicide_comments.to_csv('cleaned_datasets/SuicideWatch_comments_cleaned.csv', index = False)
-final_depression_submissions.to_csv('cleaned_datasets/depression_submissions_cleaned.csv', index = False)
-final_depression_comments.to_csv('cleaned_datasets/depression_comments_cleaned.csv', index = False)
+
+
+
+cleaned_suicide_submissions_2022 = integrate_content_submissions(filtered_suicide_submissions_2022)
+cleaned_suicide_comments_2022 = integrate_content_comments(filtered_suicide_comments_2022)
+cleaned_depression_submissions_2022 = integrate_content_submissions(filtered_depression_submissions_2022)
+cleaned_depression_comments_2022 = integrate_content_comments(filtered_depression_comments_2022)
+
+cleaned_suicide_submissions_2023 = integrate_content_submissions(filtered_suicide_submissions_2023)
+cleaned_suicide_comments_2023 = integrate_content_comments(filtered_suicide_comments_2023)
+cleaned_depression_submissions_2023 = integrate_content_submissions(filtered_depression_submissions_2023)
+cleaned_depression_comments_2023 = integrate_content_comments(filtered_depression_comments_2023)
+
+
+
+
+cleaned_suicide_submissions_2022.to_csv("cleaned_datasets_2022/suicide_submissions_cleaned.csv", index = False)
+cleaned_suicide_comments_2022.to_csv("cleaned_datasets_2022/suicide_comments_cleaned.csv", index = False)
+cleaned_depression_submissions_2022.to_csv("cleaned_datasets_2022/depression_submissions_cleaned.csv", index = False)
+cleaned_depression_comments_2022.to_csv("cleaned_datasets_2022/depression_comments_cleaned.csv", index = False)
+
+cleaned_suicide_submissions_2023.to_csv("cleaned_datasets_2023/suicide_submissions_cleaned.csv", index = False)
+cleaned_suicide_comments_2023.to_csv("cleaned_datasets_2023/suicide_comments_cleaned.csv", index = False)
+cleaned_depression_submissions_2023.to_csv("cleaned_datasets_2023/depression_submissions_cleaned.csv", index = False)
+cleaned_depression_comments_2023.to_csv("cleaned_datasets_2023/depression_comments_cleaned.csv", index = False)
+
+
+
+
+
+
+filtered_suicide_submissions_all = clean_data_submissions(suicide_submissions, 2022, 2023)
+filtered_suicide_comments_all = clean_data_comments(suicide_comments, 2022, 2023)
+filtered_depression_submissions_all = clean_data_submissions(depression_submissions, 2022, 2023)
+filtered_depression_comments_all = clean_data_comments(depression_comments, 2022, 2023)
+
+
+def link_datasets_by_thread_id(dataset_submissions, dataset_comments, thread_id_col='thread_id'):
+    if thread_id_col not in dataset_submissions.columns or thread_id_col not in dataset_comments.columns:
+        raise ValueError(f"Column '{thread_id_col}' must exist in both datasets.")
+
+    linked_data = pd.merge(dataset_submissions, dataset_comments, on=thread_id_col, how='inner')
+    linked_data = linked_data[['author_x', 'score_x', 'title', 'text', 'author_y', 'score_y', 'body', 'thread_id', 'url']]
+    linked_data.rename(columns={
+        "author_x": "author_submission",
+        "score_x": "score_submission",
+        "title": "title_submission",
+        "text": "content_submission",
+        "author_y": "author_comment",
+        "score_y": "score_comment",
+        "body": "content_comment"
+    }, inplace=True)
+
+    return linked_data
+
+
+
+
+linked_suicide = link_datasets_by_thread_id(filtered_suicide_submissions_all, filtered_suicide_comments_all)
+linked_depression = link_datasets_by_thread_id(filtered_depression_submissions_all, filtered_depression_comments_all)
+
+linked_suicide.to_csv("linked_datasets_2022_2023/2022_2023_linked_suicide.csv")
+linked_depression.to_csv("linked_datasets_2022_2023/2022_2023_linked_depression.csv")
