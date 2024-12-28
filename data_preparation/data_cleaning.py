@@ -37,10 +37,10 @@ depression_submissions = pd.read_csv("linked_datasets_all/depression_linked_subm
 depression_comments = pd.read_csv("linked_datasets_all/depression_linked_comments.csv", dtype='str', encoding='utf-8', lineterminator='\n')
 
 
-filtered_suicide_submissions_2019 = clean_data_submissions(suicide_submissions, 2019, 2019)
-filtered_suicide_comments_2019 =  clean_data_comments(suicide_comments, 2019, 2019)
-filtered_depression_submissions_2019 = clean_data_submissions(depression_submissions, 2019, 2019)
-filtered_depression_comments_2019 = clean_data_comments(depression_comments, 2019, 2019)
+filtered_suicide_submissions_2020 = clean_data_submissions(suicide_submissions, 2020, 2020)
+filtered_suicide_comments_2020 =  clean_data_comments(suicide_comments, 2020, 2020)
+filtered_depression_submissions_2020 = clean_data_submissions(depression_submissions, 2020, 2020)
+filtered_depression_comments_2020 = clean_data_comments(depression_comments, 2020, 2020)
 
 filtered_suicide_submissions_2022 = clean_data_submissions(suicide_submissions, 2022, 2022)
 filtered_suicide_comments_2022 =  clean_data_comments(suicide_comments, 2022, 2022)
@@ -54,9 +54,10 @@ filtered_depression_comments_2023 = clean_data_comments(depression_comments, 202
 
 
 
-
-
-
+cleaned_suicide_submissions_2020 = integrate_content_submissions(filtered_suicide_submissions_2020)
+cleaned_suicide_comments_2020 = integrate_content_comments(filtered_suicide_comments_2020)
+cleaned_depression_submissions_2020 = integrate_content_submissions(filtered_depression_submissions_2020)
+cleaned_depression_comments_2020 = integrate_content_comments(filtered_depression_comments_2020)
 
 cleaned_suicide_submissions_2022 = integrate_content_submissions(filtered_suicide_submissions_2022)
 cleaned_suicide_comments_2022 = integrate_content_comments(filtered_suicide_comments_2022)
@@ -68,10 +69,6 @@ cleaned_suicide_comments_2023 = integrate_content_comments(filtered_suicide_comm
 cleaned_depression_submissions_2023 = integrate_content_submissions(filtered_depression_submissions_2023)
 cleaned_depression_comments_2023 = integrate_content_comments(filtered_depression_comments_2023)
 
-cleaned_suicide_submissions_2019 = integrate_content_submissions(filtered_suicide_submissions_2019)
-cleaned_suicide_comments_2019 = integrate_content_comments(filtered_suicide_comments_2019)
-cleaned_depression_submissions_2019 = integrate_content_submissions(filtered_depression_submissions_2019)
-cleaned_depression_comments_2019 = integrate_content_comments(filtered_depression_comments_2019)
 
 
 
@@ -79,10 +76,11 @@ cleaned_depression_comments_2019 = integrate_content_comments(filtered_depressio
 
 
 
-cleaned_suicide_submissions_2019.to_csv("cleaned_datasets_2019/suicide_submissions_cleaned.csv", index = False)
-cleaned_suicide_comments_2019.to_csv("cleaned_datasets_2019/suicide_comments_cleaned.csv", index = False)
-cleaned_depression_submissions_2019.to_csv("cleaned_datasets_2019/depression_submissions_cleaned.csv", index = False)
-cleaned_depression_comments_2019.to_csv("cleaned_datasets_2019/depression_comments_cleaned.csv", index = False)
+
+cleaned_suicide_submissions_2020.to_csv("cleaned_datasets_2020/suicide_submissions_cleaned.csv", index = False)
+cleaned_suicide_comments_2020.to_csv("cleaned_datasets_2020/suicide_comments_cleaned.csv", index = False)
+cleaned_depression_submissions_2020.to_csv("cleaned_datasets_2020/depression_submissions_cleaned.csv", index = False)
+cleaned_depression_comments_2020.to_csv("cleaned_datasets_2020/depression_comments_cleaned.csv", index = False)
 
 cleaned_suicide_submissions_2022.to_csv("cleaned_datasets_2022/suicide_submissions_cleaned.csv", index = False)
 cleaned_suicide_comments_2022.to_csv("cleaned_datasets_2022/suicide_comments_cleaned.csv", index = False)

@@ -1,20 +1,23 @@
+import os
+
 import numpy as np
 import pandas as pd
 from scipy.sparse import dok_matrix, csr_matrix
 
+
 # Load the dataset
-linked_suicide = pd.read_csv("../data_preparation/linked_datasets_2022_2023/2022_2023_linked_suicide.csv")
+linked_suicide = pd.read_csv("../data_preparation/linked_datasets_2022_2023/2022_2023_linked_suicide.csv", dtype='str', encoding='utf-8',lineterminator='\n')
 
 # Create nodes
-nodes = pd.concat([linked_suicide['author_x'], linked_suicide['author_y']]).drop_duplicates().reset_index(drop=True)
+nodes = pd.concat([linked_suicide['author_submission'], linked_suicide['author_comment']]).drop_duplicates().reset_index(drop=True)
 node_to_index = {node: i for i, node in enumerate(nodes)}
 num_nodes = len(nodes)
 
 # Create edges
 edges = []
 for _, row in linked_suicide.iterrows():
-    source_node = row['author_x']
-    target_node = row['author_y']
+    source_node = row['author_submission']
+    target_node = row['author_comment']
     if source_node != target_node:  # Avoid self-loops
         edges.append((source_node, target_node))
 
@@ -62,8 +65,8 @@ for node, score in sorted(pagerank_scores.items(), key=lambda x: x[1], reverse=T
     print(f"{node}: {score:.4f}")
 
 # Convert PageRank scores to a DataFrame
-pagerank_df = pd.DataFrame(list(pagerank_scores.items()), columns=['Node', 'PageRank'])
-pagerank_df = pagerank_df.sort_values(by='PageRank', ascending=False)
+pagerank_df = pd.DataFrame(list(pagerank_scores.items()), columns=['node', 'pagerank'])
+pagerank_df = pagerank_df.sort_values(by='pagerank', ascending=False)
 
 pagerank_df.to_csv("suicide_pagerank_scores.csv", index=False)
 print("PageRank scores have been saved to 'suicide_pagerank_scores.csv'.")

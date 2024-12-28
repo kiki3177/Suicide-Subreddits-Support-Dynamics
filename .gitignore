@@ -2,7 +2,7 @@
 .DS_Store
 /.idea
 
-/data_preparation/cleaned_datasets_2019
+/data_preparation/cleaned_datasets_2020
 /data_preparation/cleaned_datasets_2022
 /data_preparation/cleaned_datasets_2023
 /data_preparation/cleaned_datasets_all
@@ -12,3 +12,4 @@
 /data_preparation/subreddits_csv
 /data_preparation/subreddits_zst
 
+data_preparation/data_scraping_2024.py
