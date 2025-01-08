@@ -5,11 +5,13 @@
 /data_preparation/cleaned_datasets_2020
 /data_preparation/cleaned_datasets_2022
 /data_preparation/cleaned_datasets_2023
-/data_preparation/cleaned_datasets_all
-/data_preparation/linked_datasets_2022_2023
-/data_preparation/linked_datasets_all
-/posts_categorization/results
+/data_preparation/cleaned_datasets_2024
 /data_preparation/subreddits_csv
 /data_preparation/subreddits_zst
+/posts_categorization/llm_results
+/posts_categorization/linked_submissions_comments
+/posts_categorization/concatenated_linked_datasets
 
-data_preparation/data_scraping_2024.py
+
+
+

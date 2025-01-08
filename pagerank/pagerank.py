@@ -5,19 +5,18 @@ import pandas as pd
 from scipy.sparse import dok_matrix, csr_matrix
 
 
-# Load the dataset
-linked_suicide = pd.read_csv("../data_preparation/linked_datasets_2022_2023/2022_2023_linked_suicide.csv", dtype='str', encoding='utf-8',lineterminator='\n')
+linked_suicide = pd.read_csv("../posts_categorization/linked_submissions_comments/2023_depression_linked_llama_gemma_qwen.csv", dtype='str', encoding='utf-8',lineterminator='\n')
 
 # Create nodes
-nodes = pd.concat([linked_suicide['author_submission'], linked_suicide['author_comment']]).drop_duplicates().reset_index(drop=True)
+nodes = pd.concat([linked_suicide['submitter_username'], linked_suicide['commenter_username']]).drop_duplicates().reset_index(drop=True)
 node_to_index = {node: i for i, node in enumerate(nodes)}
 num_nodes = len(nodes)
 
 # Create edges
 edges = []
 for _, row in linked_suicide.iterrows():
-    source_node = row['author_submission']
-    target_node = row['author_comment']
+    source_node = row['submitter_username']
+    target_node = row['commenter_username']
     if source_node != target_node:  # Avoid self-loops
         edges.append((source_node, target_node))
 
@@ -25,7 +24,7 @@ print(f"Number of nodes: {num_nodes}")
 print(f"Number of edges: {len(edges)}")
 
 # Parameters
-damping_factor = 0.85  # Typical value for PageRank
+damping_factor = 0.85
 num_iterations = 100
 tolerance = 1e-6
 
@@ -51,22 +50,18 @@ for iteration in range(num_iterations):
     new_pagerank = ((1 - damping_factor) / num_nodes) + \
                    damping_factor * (transition_matrix.T @ pagerank)
 
-    # Check for convergence
     if np.linalg.norm(new_pagerank - pagerank, ord=1) < tolerance:
         print(f"Converged after {iteration + 1} iterations")
         break
 
     pagerank = new_pagerank
 
-# Output results
 pagerank_scores = {nodes[i]: score for i, score in enumerate(pagerank)}
 print("Final PageRank Scores:")
 for node, score in sorted(pagerank_scores.items(), key=lambda x: x[1], reverse=True):
     print(f"{node}: {score:.4f}")
 
-# Convert PageRank scores to a DataFrame
+
 pagerank_df = pd.DataFrame(list(pagerank_scores.items()), columns=['node', 'pagerank'])
 pagerank_df = pagerank_df.sort_values(by='pagerank', ascending=False)
-
-pagerank_df.to_csv("suicide_pagerank_scores.csv", index=False)
-print("PageRank scores have been saved to 'suicide_pagerank_scores.csv'.")
+pagerank_df.to_csv("pagerank_results/depression_pagerank_scores_2023.csv", index=False)
