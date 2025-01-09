@@ -20,8 +20,35 @@ def calculate_improvement(df):
     df['comment_score'] = df['content_comment'].progress_apply(cal_sentiment_score)
 
     df['improvement'] = df['comment_score'] - df['submission_score']
+
+    # Define thresholds for categorization
+    slight_threshold = 0.1
+    moderate_threshold = 0.5
+
+    df['sentiment_tracking_category'] = np.select(
+        [
+            df['improvement'] < -moderate_threshold,
+            (df['improvement'] >= -moderate_threshold) & (df['improvement'] < -slight_threshold),
+            (df['improvement'] >= -slight_threshold) & (df['improvement'] <= slight_threshold),
+            (df['improvement'] > slight_threshold) & (df['improvement'] <= moderate_threshold),
+            df['improvement'] > moderate_threshold
+        ],
+        [
+            'significant negative',
+            'slight negative',
+            'neutral',
+            'slight positive',
+            'significant positive'
+        ],
+        default=''
+    )
+
     return df
 
-df = pd.read_csv("../pagerank/depression_submitters_replied_2023.csv")
+
+subreddit_name = "suicide"
+year = 2023
+
+df = pd.read_csv(f"{subreddit_name}_submitters_replied_{year}.csv")
 df = calculate_improvement(df)
-df.to_csv("depression_submitters_replied_2023_sentiment_score_transformer.csv", index=False)
+df.to_csv(f"{subreddit_name}_submitters_replied_{year}_sentiment_score_transformer.csv", index=False)

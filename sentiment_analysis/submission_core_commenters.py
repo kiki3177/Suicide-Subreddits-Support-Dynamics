@@ -1,15 +1,19 @@
 import pandas as pd
 
-suicide_core_2023 = pd.read_csv("results/suicide_pagerank_scores_2023.csv")
-suicide_core_2023 = suicide_core_2023.head(101)
+subreddit_name = "suicide"
+year = 2023
 
 
-suicide_linked_2023 = pd.read_csv("../posts_categorization/linked_submissions_comments/2023_suicide_linked_llama_gemma_qwen.csv", dtype='str', encoding='utf-8',lineterminator='\n')
+original_df = pd.read_csv(f"../pagerank/pagerank_results/{subreddit_name}_pagerank_scores_{year}.csv")
+core_commenters = original_df.head(101)
 
 
-result_commenters = suicide_linked_2023[suicide_linked_2023['commenter_username'].isin(suicide_core_2023['node'])]
+linked_df = pd.read_csv(f"../posts_categorization/linked_submissions_comments/{year}_{subreddit_name}_linked_llama_gemma_qwen.csv", dtype='str', encoding='utf-8',lineterminator='\n')
 
-result_submitters = suicide_linked_2023[suicide_linked_2023['submitter_username'].isin(result_commenters['submitter_username'])]
+
+result_commenters = linked_df[linked_df['commenter_username'].isin(core_commenters['node'])]
+
+result_submitters = linked_df[linked_df['submitter_username'].isin(result_commenters['submitter_username'])]
 
 result_submitters_replied = result_submitters[result_submitters['submitter_username'] == result_submitters['commenter_username']]
 result_submitters_replied = result_submitters_replied.drop(result_submitters_replied.columns[0], axis=1)
@@ -24,5 +28,5 @@ result_submitters_replied_agg = result_submitters_replied.groupby('submitter_use
     'url': 'first'
 })
 
-result_submitters_replied_agg.to_csv("suicide_submitters_replied_2023.csv", index=False)
+result_submitters_replied_agg.to_csv(f"{subreddit_name}_tail_submitters_replied_{year}.csv", index=False)
 
