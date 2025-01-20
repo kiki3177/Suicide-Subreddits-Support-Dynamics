@@ -1,0 +1,57 @@
+year,subreddit_name,core_or_random,sentiment_tracking_category,count
+2020,suicide,core,neutral,4338
+2020,suicide,core,significant positive,1939
+2020,suicide,core,significant negative,504
+2020,suicide,core,slight positive,340
+2020,suicide,core,slight negative,191
+2020,suicide,random,neutral,28
+2020,suicide,random,significant positive,16
+2020,suicide,random,significant negative,4
+2020,suicide,random,slight positive,3
+2020,suicide,random,slight negative,1
+2023,suicide,core,neutral,3955
+2023,suicide,core,significant positive,1625
+2023,suicide,core,significant negative,448
+2023,suicide,core,slight positive,325
+2023,suicide,core,slight negative,157
+2023,suicide,random,neutral,29
+2023,suicide,random,significant positive,16
+2023,suicide,random,slight positive,3
+2023,suicide,random,slight negative,1
+2024,suicide,core,neutral,321
+2024,suicide,core,significant positive,159
+2024,suicide,core,significant negative,29
+2024,suicide,core,slight positive,25
+2024,suicide,core,slight negative,20
+2024,suicide,random,neutral,40
+2024,suicide,random,significant positive,25
+2024,suicide,random,significant negative,4
+2024,suicide,random,slight negative,2
+2024,suicide,random,slight positive,1
+2020,depression,core,neutral,4566
+2020,depression,core,significant positive,2934
+2020,depression,core,significant negative,575
+2020,depression,core,slight positive,534
+2020,depression,core,slight negative,216
+2020,depression,random,neutral,25
+2020,depression,random,significant positive,21
+2020,depression,random,significant negative,3
+2020,depression,random,slight positive,1
+2023,depression,core,neutral,2328
+2023,depression,core,significant positive,1351
+2023,depression,core,significant negative,235
+2023,depression,core,slight positive,231
+2023,depression,core,slight negative,96
+2023,depression,random,neutral,23
+2023,depression,random,significant positive,16
+2023,depression,random,slight positive,3
+2023,depression,random,significant negative,1
+2024,depression,core,neutral,305
+2024,depression,core,significant positive,199
+2024,depression,core,slight positive,38
+2024,depression,core,significant negative,33
+2024,depression,core,slight negative,6
+2024,depression,random,neutral,32
+2024,depression,random,significant positive,20
+2024,depression,random,slight positive,7
+2024,depression,random,significant negative,4

@@ -46,9 +46,13 @@ def calculate_improvement(df):
     return df
 
 
-subreddit_name = "suicide"
-year = 2023
+subreddit_names = ["suicide", "depression"]
+years = [2020, 2023, 2024]
+core_or_random_list = ['core', 'random']
 
-df = pd.read_csv(f"{subreddit_name}_submitters_replied_{year}.csv")
-df = calculate_improvement(df)
-df.to_csv(f"{subreddit_name}_submitters_replied_{year}_sentiment_score_transformer.csv", index=False)
+for subreddit_name in subreddit_names:
+    for year in years:
+        for core_or_random in core_or_random_list:
+            df = pd.read_csv(f"target_commenters/{subreddit_name}_{core_or_random}_submitters_replied_{year}.csv")
+            df = calculate_improvement(df)
+            df.to_csv(f"transformer_results/{subreddit_name}_{core_or_random}_submitters_replied_{year}_sentiment_score_transformer.csv", index=False)

@@ -7,7 +7,7 @@ from scipy.sparse import dok_matrix, csr_matrix
 
 
 subreddit_name = "suicide"
-year = 2023
+year = 2024
 linked_suicide = pd.read_csv(f"../posts_categorization/linked_submissions_comments/{year}_{subreddit_name}_linked_llama_gemma_qwen.csv", dtype='str', encoding='utf-8',lineterminator='\n')
 
 # Create nodes
