@@ -1,0 +1,1 @@
+This repository contains the code and instructions for implementing the experiments described in the research paper _From Peer Support to AI-Driven Solutions: Exploring Emotional Resonance and Network Dynamics in Online Suicide Communities_.
