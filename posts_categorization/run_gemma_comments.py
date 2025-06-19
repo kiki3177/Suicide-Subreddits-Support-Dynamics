@@ -41,24 +41,35 @@ def ask_gemma2(prompt, port):
         print(f"Request failed: {e}")
 
 
-
 def generate_prompt(post_content):
     return f"""
             Post: "{post_content}"
-            
-            
+
             Categorize the post into one of the categories:
-            1.Empathy-based comments: express understanding, support, or compassion.
-            2.Advice-based comments: provide suggestions, guidance, or actionable steps.
-            3.Comments sharing similar experience: recount the commenter's own experiences that relate to the poster’s situation.
-            4.Others/random: do not fit into the above categories.
-            5.Invalid:it is empty or deleted
-            
+
+            1. Empathy-based comments:
+            - Express understanding and validate feelings (e.g. It’s completely normal to feel this way.)
+            - Offer emotional support, comfort, or encouragement (e.g. You’re not alone in this.)
+
+            2. Advice-based comments:
+            - Provide specific and practical suggestions (e.g. Have you considered reaching out to a clinical psychologist?)
+            - Share resources like hotlines, tools, or articles (e.g. You might find this helpful: [link].)
+
+            3. Comments sharing similar experience:
+            - Share personal stories that are similar to the submitter’s situation (e.g. I’ve been through something similar and it was really tough.)
+            - Express solidarity and connection (e.g. I know exactly how you feel because I’ve been there too.)
+
+            4. Others/random:
+            - Off-topic, humorous, sarcastic, or unclear comments (e.g. LOL, don’t do it! or This reminds me of a movie I watched.)
+
+            5. Invalid:
+            - Empty or deleted comment
+
             DO NOT GIVE ME REASON. ONLY TELL ME THE CATEGORY.
-            
-            your output format must be: 
+
+            Your output format must be:
             "1.Empathy-based comments" OR "2.Advice-based comments" OR "3.Comments sharing similar experience" OR "4.Others/random" OR "5.Invalid"
-            
+
             NO REASONING 
             """
 
@@ -101,5 +112,6 @@ if __name__ == "__main__":
                 writer.writerow([author, score, content, link, thread_id, result])
                 pbar.set_postfix({"": result[:5]})
                 pbar.update(1)
+
 
 

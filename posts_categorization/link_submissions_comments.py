@@ -16,9 +16,10 @@ def process_llm_data(llm, year, subreddit_name):
 
     dataset_submissions = dataset_submissions.dropna(subset=['thread_id'])
     dataset_comments = dataset_comments.dropna(subset=['thread_id'])
+    dataset_submissions.columns = dataset_submissions.columns.str.strip()
+    dataset_comments.columns = dataset_comments.columns.str.strip()
 
     linked_data = pd.merge(dataset_submissions, dataset_comments, on="thread_id", how='inner')
-
 
     linked_data[f'submissions_categ'] = linked_data['submissions_categ'].apply(extract_category)
     linked_data[f'comments_categ'] = linked_data['comments_categ'].apply(extract_category)

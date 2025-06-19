@@ -11,8 +11,13 @@
 /posts_categorization/llm_results
 /posts_categorization/linked_submissions_comments
 /posts_categorization/concatenated_linked_datasets
+/posts_categorization/archived_2020
 /posts_categorization/archived_2022
+/pagerank/archived
+/sentiment_analysis/archived
+/sentiment_analysis/Vader_archived
 
 
 
 
+*.pyc

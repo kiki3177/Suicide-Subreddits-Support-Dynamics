@@ -34,7 +34,7 @@ def process_subreddit(subreddit_name, year, core_or_random, num_rows=100):
 
 
 subreddit_names = ["suicide", "depression"]
-years = [2020, 2023, 2024]
+years = [2023, 2024]
 core_or_random_list = ['core', 'random']
 
 for subreddit_name in subreddit_names:

@@ -44,17 +44,29 @@ def generate_prompt(post_content):
     return f"""
             Post: "{post_content}"
 
-
             Categorize the post into one of the categories:
-            1.Seeking help and support: expresses a need for help or support.
-            2.Sharing experience: shares their personal experiences or stories.
-            3.Giving advice: provides advice or suggestions to others.
-            4.Others/random: do not fit into the above categories.
-            5.Invalid:it is empty or deleted
+
+            1. Seeking help and support:
+            - Express emotional distress (e.g. I feel like I’m falling apart and I don’t know who to talk to.)
+            - Explicitly request support or advice (e.g. Does anyone have advice on how to cope with these thoughts?)
+
+            2. Sharing experience:
+            - Describe personal struggles or mental health challenges (e.g. Here’s my story from when I hit rock bottom last year.)
+            - Reflect on past events related to mental health (e.g. It’s been a year since my attempt, and I wanted to share what I’ve learned.)
+
+            3. Giving advice:
+            - Offer personal strategies or suggestions (e.g. What helped me was keeping a routine, even on the hardest days.)
+            - Recommend resources or professional help (e.g. You might find this helpful: [link].)
+
+            4. Others/random:
+            - Off-topic, humorous, sarcastic, or unclear posts (e.g. LOL, it is so fun! or What’s your favorite TV show right now?)
+
+            5. Invalid:
+            - Empty or deleted post
 
             DO NOT GIVE ME REASON. ONLY TELL ME THE CATEGORY.
 
-            your output format must be: 
+            Your output format must be:
             "1.Seeking help and support" OR "2.Sharing experience" OR "3.Giving advice" OR "4.Others/random" OR "5.Invalid"
 
             NO REASONING 
